@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,7 +42,12 @@ public class SignUpActivity extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.signUpButton);
 
 
-        signUpButton.setOnClickListener(v -> signUp());
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUp();
+            }
+        });
     }
 
     private void signUp() {

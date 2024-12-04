@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BiteBazaar"
+rootProject.name = "BiteBazaar2"
 include(":app")
+ 
