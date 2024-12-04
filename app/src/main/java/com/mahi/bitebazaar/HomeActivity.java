@@ -41,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("food_items");
 
         loadFoodItems();
+
+//        loading food items
     }
 
     private void loadFoodItems() {
