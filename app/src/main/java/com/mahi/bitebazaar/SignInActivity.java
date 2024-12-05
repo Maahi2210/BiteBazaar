@@ -69,8 +69,14 @@ public class SignInActivity extends AppCompatActivity {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
-                        finish();
+                        if(email.equals("maahishah2210@gmail.com")){
+                            startActivity(new Intent(SignInActivity.this, AdminHomeActivity.class));
+                            finish();
+                        }else {
+                            startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                            finish();
+                        }
+
                     } else {
                         String errorMessage;
                         try {
