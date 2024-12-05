@@ -40,27 +40,34 @@ public class OrderActivity extends AppCompatActivity {
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
+        // Enable the back arrow
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Show the back arrow
             getSupportActionBar().setDisplayShowHomeEnabled(true); // Enable home button
             getSupportActionBar().setTitle("My Orders"); // Set the title
         }
 
+        // Initialize Views
         ordersRecyclerView = findViewById(R.id.ordersRecyclerView);
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Initialize Adapter
         orderAdapter = new OrderAdapter(new ArrayList<>());
         ordersRecyclerView.setAdapter(orderAdapter);
 
+        // Get current user's ID
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        // Reference to the "orders" node in Firebase
         ordersRef = FirebaseDatabase.getInstance().getReference("orders");
 
+        // Load orders for the current user
         loadUserOrders();
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // Handle the back arrow click
             onBackPressed();
             return true;
         }
@@ -73,11 +80,13 @@ public class OrderActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Order> orderList = new ArrayList<>();
 
+                // Iterate through the user's orders
                 for (DataSnapshot orderSnapshot : dataSnapshot.getChildren()) {
                     Order order = orderSnapshot.getValue(Order.class);
                     orderList.add(order);
                 }
 
+                // Update the RecyclerView with the fetched orders
                 orderAdapter.updateOrders(orderList);
             }
 
