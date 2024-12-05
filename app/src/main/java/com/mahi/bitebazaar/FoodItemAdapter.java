@@ -38,8 +38,8 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
 
         Picasso.get()
                 .load(foodItem.getFoodImageUrl())
-//                .placeholder(R.drawable.placeholder_image) // Add a placeholder image in your drawable folder
-//                .error(R.drawable.error_image)             // Add an error image for failed loads
+//                .placeholder(R.drawable.placeholder_image)
+//                .error(R.drawable.error_image)
                 .into(holder.foodImage);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), FoodDetailActivity.class);

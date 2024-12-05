@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -23,7 +25,13 @@ public class SplashActivity extends AppCompatActivity {
             FirebaseUser currentUser = auth.getCurrentUser();
 
             if (currentUser != null) {
-                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                if(Objects.equals(currentUser.getEmail(), "maahishah2210@gmail.com")){
+                    startActivity(new Intent(SplashActivity.this, AdminHomeActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                }
+
             } else {
                 startActivity(new Intent(SplashActivity.this, SignInActivity.class));
             }
