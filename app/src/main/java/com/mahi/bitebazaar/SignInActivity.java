@@ -33,24 +33,9 @@ public class SignInActivity extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.signUpButton);
         TextView forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
-            }
-        });
-        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignInActivity.this, ForgotPasswordActivity.class));
-            }
-        });
+        signInButton.setOnClickListener(v -> signIn());
+        signUpButton.setOnClickListener(v -> startActivity(new Intent(SignInActivity.this, SignUpActivity.class)));
+        forgotPasswordButton.setOnClickListener(v -> startActivity(new Intent(SignInActivity.this, ForgotPasswordActivity.class)));
     }
 
     private void signIn() {
@@ -101,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
                         }
                         Toast.makeText(SignInActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
-            });
+                });
 
-}
+    }
 }

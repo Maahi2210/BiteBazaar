@@ -7,7 +7,6 @@ public class FoodItem {
     private String foodImageUrl;
 
     public FoodItem() {
-        // Default constructor for Firebase
     }
 
     public FoodItem(String foodId, String foodName, String foodPrice, String foodImageUrl) {
@@ -31,5 +30,5 @@ public class FoodItem {
 
     public String getFoodImageUrl() {
         return foodImageUrl;
-}
+    }
 }
