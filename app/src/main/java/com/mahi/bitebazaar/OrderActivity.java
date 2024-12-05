@@ -37,41 +37,61 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-        // Enable the back arrow
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Show the back arrow
-            getSupportActionBar().setDisplayShowHomeEnabled(true); // Enable home button
-            getSupportActionBar().setTitle("My Orders"); // Set the title
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Orders");
         }
-
-        // Initialize Views
         ordersRecyclerView = findViewById(R.id.ordersRecyclerView);
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize Adapter
+
         orderAdapter = new OrderAdapter(new ArrayList<>());
         ordersRecyclerView.setAdapter(orderAdapter);
-
-        // Get current user's ID
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        // Reference to the "orders" node in Firebase
         ordersRef = FirebaseDatabase.getInstance().getReference("orders");
+        if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("maahishah2210@gmail.com")){
+            loadOrders();
+        }else {
+            loadUserOrders();
+        }
 
-        // Load orders for the current user
-        loadUserOrders();
+
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            // Handle the back arrow click
             onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadOrders() {
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Order> orderList = new ArrayList<>();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot orderSnapshot : userSnapshot.getChildren()) {
+                        Order order = orderSnapshot.getValue(Order.class);
+                        if (order != null) {
+                            orderList.add(order);
+                        }
+                    }
+                }
+                if (orderAdapter != null) {
+                    orderAdapter.updateOrders(orderList);
+                } else {
+                    Toast.makeText(OrderActivity.this, "Adapter not initialized.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(OrderActivity.this, "Failed to load orders: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadUserOrders() {
@@ -79,14 +99,10 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Order> orderList = new ArrayList<>();
-
-                // Iterate through the user's orders
                 for (DataSnapshot orderSnapshot : dataSnapshot.getChildren()) {
                     Order order = orderSnapshot.getValue(Order.class);
                     orderList.add(order);
                 }
-
-                // Update the RecyclerView with the fetched orders
                 orderAdapter.updateOrders(orderList);
             }
 
