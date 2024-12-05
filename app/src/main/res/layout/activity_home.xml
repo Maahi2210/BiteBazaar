@@ -1,18 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F8F8F8">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FF5722"
+        android:elevation="6dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Bite Bazaar"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <RelativeLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/profileIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="Profile"
+                android:src="@drawable/ic_profile"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/ordersLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/ordersIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="Orders"
+                android:src="@drawable/ic_order"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/cartLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp">
+            <ImageView
+                android:id="@+id/cartIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="Cart"
+                android:src="@drawable/ic_cart"
+                android:layout_centerVertical="true" />
+            <TextView
+                android:id="@+id/cartItemCount"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignRight="@id/cartIcon"
+                android:layout_alignTop="@id/cartIcon"
+                android:background="@drawable/badge_background"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="#FF5722" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
-        android:layout_marginTop="16dp" />
+        android:clipToPadding="false"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:scrollbars="vertical"
+        android:layout_marginBottom="8dp" />
 </RelativeLayout>

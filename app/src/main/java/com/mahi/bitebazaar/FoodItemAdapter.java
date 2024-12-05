@@ -1,5 +1,6 @@
 package com.mahi.bitebazaar;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
         this.foodItems = foodItems;
     }
 
+
+
     @NonNull
     @Override
     public FoodItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +41,14 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
 //                .placeholder(R.drawable.placeholder_image) // Add a placeholder image in your drawable folder
 //                .error(R.drawable.error_image)             // Add an error image for failed loads
                 .into(holder.foodImage);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), FoodDetailActivity.class);
+            intent.putExtra("foodId", foodItem.getFoodId());
+            intent.putExtra("foodName", foodItem.getFoodName());
+            intent.putExtra("foodPrice", foodItem.getFoodPrice());
+            intent.putExtra("foodImageUrl", foodItem.getFoodImageUrl());
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override
@@ -54,6 +65,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
             foodImage = itemView.findViewById(R.id.foodImage);
             foodName = itemView.findViewById(R.id.foodName);
             foodPrice = itemView.findViewById(R.id.foodPrice);
- }
+        }
+    }
 }
-}
+
