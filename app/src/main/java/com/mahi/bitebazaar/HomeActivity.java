@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
 
         loadFoodItems();
 
-//        loading food items
     }
 
     private void loadFoodItems() {
