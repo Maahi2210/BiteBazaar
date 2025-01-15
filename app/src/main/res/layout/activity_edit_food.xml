@@ -1,10 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditFoodActivity">
+    android:padding="16dp"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/foodImagePreview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop" />
+
+        <EditText
+            android:id="@+id/editFoodName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Food Name"
+            android:inputType="text"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editFoodPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="8dp" />
+        <EditText
+            android:id="@+id/editFoodDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:layout_marginTop="8dp" />
+        <EditText
+            android:id="@+id/editFoodImageUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Image"
+            android:inputType="text"
+            android:layout_marginTop="16dp" />
+        <EditText
+            android:id="@+id/editFoodQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quantity"
+            android:inputType="number"
+            android:layout_marginTop="8dp" />
+
+
+        <Button
+            android:id="@+id/btnSaveChanges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/orange"
+            android:text="Save Changes"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>
