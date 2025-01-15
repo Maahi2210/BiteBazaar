@@ -41,4 +41,11 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.stripe:stripe-java:22.2.0")
+    implementation("com.stripe:stripe-android:17.2.0")
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("androidx.cardview:cardview:1.0.0")
 }

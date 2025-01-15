@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:layout_margin="4dp">
+    android:layout_margin="4dp"
+    android:background="@drawable/rounded_card">
 
     <ImageView
         android:id="@+id/foodImage"
@@ -28,5 +29,6 @@
         android:text="Price"
         android:paddingTop="4dp"
         android:textSize="14sp"
-        android:textColor="#FF6200EE" />
+        android:textColor="@color/orange" />
 </LinearLayout>
+
