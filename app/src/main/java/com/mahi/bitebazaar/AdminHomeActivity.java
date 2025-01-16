@@ -52,6 +52,18 @@ public class AdminHomeActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminHomeActivity.this, OrderActivity.class));
             }
         });
+        usersCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminHomeActivity.this, UserActivity.class));
+            }
+        });
+        productsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminHomeActivity.this, FoodItemActivity.class));
+            }
+        });
     }
 
     private void fetchProductCount() {
@@ -77,7 +89,7 @@ public class AdminHomeActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long userCount = snapshot.getChildrenCount();
+                long userCount = snapshot.getChildrenCount() - 1;
                 usersCountTextView.setText("Users: "+ String.valueOf(userCount));
             }
 
