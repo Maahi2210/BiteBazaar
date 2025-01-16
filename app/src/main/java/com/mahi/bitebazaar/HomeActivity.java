@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,10 +24,12 @@ import java.util.List;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView, categoryRecyclerView;
     private ProgressBar progressBar;
     private List<FoodItem> foodItemList;
+    private List<Category> categoryList;
     private FoodItemAdapter adapter;
+    private CategoryAdapter categoryAdapter;
     private DatabaseReference databaseReference;
     private TextView cartItemCount;
 
@@ -36,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         recyclerView = findViewById(R.id.recyclerView);
+        categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
         progressBar = findViewById(R.id.progressBar);
         cartItemCount = findViewById(R.id.cartItemCount);
 
@@ -44,12 +48,19 @@ public class HomeActivity extends AppCompatActivity {
         adapter = new FoodItemAdapter(foodItemList);
         recyclerView.setAdapter(adapter);
 
+        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        categoryList = new ArrayList<>();
+        categoryAdapter = new CategoryAdapter(categoryList, this::onCategorySelected);
+        categoryRecyclerView.setAdapter(categoryAdapter);
+
+
+
         ImageView cartIcon = findViewById(R.id.cartIcon);
         ImageView ordersIcon = findViewById(R.id.ordersIcon);
         ImageView profileIcon = findViewById(R.id.profileIcon);
         databaseReference = FirebaseDatabase.getInstance().getReference("food_items");
-
-        loadFoodItems();
+        loadCategories();
+        loadFoodItems(null);
         updateCartItemCount();
 
         cartIcon.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +76,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, OrderActivity.class));
             }
         });
-
-
-
-
-
         profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +84,18 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFoodItems() {
+    private void loadCategories() {
+        categoryList.clear();
+        categoryList.add(new Category("All", true)); // Default category
+        categoryList.add(new Category("Pizza", false));
+        categoryList.add(new Category("Burgers", false));
+        categoryList.add(new Category("Drinks", false));
+        categoryList.add(new Category("Desserts", false));
+
+        categoryAdapter.notifyDataSetChanged();
+    }
+
+    private void loadFoodItems(String category) {
         progressBar.setVisibility(View.VISIBLE);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,7 +103,9 @@ public class HomeActivity extends AppCompatActivity {
                 foodItemList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     FoodItem foodItem = dataSnapshot.getValue(FoodItem.class);
-                    foodItemList.add(foodItem);
+                    if (category == null || category.equals("All") || foodItem.getFoodCategory().equals(category)) {
+                        foodItemList.add(foodItem);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
@@ -98,6 +117,9 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this, "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void onCategorySelected(String category) {
+        loadFoodItems(category);
     }
 
     private void updateCartItemCount() {

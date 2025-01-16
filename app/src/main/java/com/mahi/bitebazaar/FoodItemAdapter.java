@@ -38,14 +38,13 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
 
         Picasso.get()
                 .load(foodItem.getFoodImageUrl())
-//                .placeholder(R.drawable.placeholder_image)
-//                .error(R.drawable.error_image)
                 .into(holder.foodImage);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), FoodDetailActivity.class);
             intent.putExtra("foodId", foodItem.getFoodId());
             intent.putExtra("foodName", foodItem.getFoodName());
             intent.putExtra("foodPrice", foodItem.getFoodPrice());
+            intent.putExtra("foodDescription", foodItem.getFoodDescription());
             intent.putExtra("foodImageUrl", foodItem.getFoodImageUrl());
             holder.itemView.getContext().startActivity(intent);
         });

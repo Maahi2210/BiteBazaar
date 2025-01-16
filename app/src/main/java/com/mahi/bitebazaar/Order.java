@@ -9,17 +9,21 @@ public class Order {
     private List<CartItem> items;
     private double totalPrice;
     private long timestamp;
+    private String schedule;
 
 
     public Order() {}
 
-    public Order(String orderId, String userId, String status, List<CartItem> items, double totalPrice, long timestamp) {
+
+
+    public Order(String orderId, String userId, String status, List<CartItem> items, double totalPrice, long timestamp , String schedule) {
         this.orderId = orderId;
         this.userId = userId;
         this.status = status;
         this.items = items;
         this.totalPrice = totalPrice;
         this.timestamp = timestamp;
+        this.schedule = schedule;
     }
 
 
@@ -40,5 +44,9 @@ public class Order {
 
     public long getTimestamp() { return timestamp; }
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+
+    public String getSchedule() {return schedule;}
+
+    public void setSchedule(String schedule) {this.schedule = schedule;}
 }
 
