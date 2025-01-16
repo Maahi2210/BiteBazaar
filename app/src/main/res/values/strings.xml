@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">BiteBazaar2</string>
+    <string name="app_name">BiteBazaar</string>
+    <string-array name="food_categories">
+        <item>Select Category</item>
+        <item>Pizza</item>
+        <item>Burgers</item>
+        <item>Drinks</item>
+        <item>Desserts</item>
+    </string-array>
 </resources>
