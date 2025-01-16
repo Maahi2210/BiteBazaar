@@ -115,7 +115,6 @@ public class PaymentActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             CustomerId = object.getString("id");
-                            //Toast.makeText(SettingsActivity.this, "CustomerId:" + CustomerId, Toast.LENGTH_SHORT).show();
                             getEphemeralKeys();
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.mahi.bitebazaar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -134,14 +135,21 @@ public class CartActivity extends AppCompatActivity {
         String orderId = orderRef.push().getKey();
 
 
-        Order order = new Order(orderId, userId, "Confirmed", cartItemList, totalPrice, System.currentTimeMillis());
+        Order order = new Order(orderId, userId, "Confirmed", cartItemList, totalPrice, System.currentTimeMillis(), "No Schedule");
 
 
         assert orderId != null;
+
+        String finalTotalPrice = String.valueOf(totalPrice);
         orderRef.child(orderId).setValue(order)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(CartActivity.this, "Order Confirmed!", Toast.LENGTH_SHORT).show();
                     clearCart(userId);
+                    Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+                    intent.putExtra("orderId", orderId);
+                    intent.putExtra("totalPrice", finalTotalPrice);
+
+                    startActivity(intent);
                 })
                 .addOnFailureListener(e -> Toast.makeText(CartActivity.this, "Failed to confirm order", Toast.LENGTH_SHORT).show());
     }

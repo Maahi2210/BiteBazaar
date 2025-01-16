@@ -47,11 +47,13 @@ public class FoodDetailActivity extends AppCompatActivity {
         String foodId = getIntent().getStringExtra("foodId");
         String name = getIntent().getStringExtra("foodName");
         String price = getIntent().getStringExtra("foodPrice");
+        String description = getIntent().getStringExtra("foodDescription");
         String imageUrl = getIntent().getStringExtra("foodImageUrl");
 
 
         foodName.setText(name);
         foodPrice.setText("$" + price);
+        foodDescription.setText(description);
         Picasso.get().load(imageUrl).into(foodImage);
         addToCartButton.setOnClickListener(v -> addToCart(foodId, name, price, imageUrl));
     }
